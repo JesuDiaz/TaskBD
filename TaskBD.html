@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Tareas</title>
+</head>
+
+<body>
+    <h1>Lista de Tareas</h1>
+    <table>
+        <tr>
+            <th>Descripcion</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task[1] }}</td>
+            <td>{{ "Hecho" if task[2] else "No Hecho" }}</td>
+            <td>
+                <a href="{{ url_for('toggle_task', task_id=task[0]) }}">Cambiar estado</a> |
+                <a href="{{ url_for('delete_task', task_id=task[0]) }}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form method="POST" action="/add">
+        <input type="text" name="task_name" placeholder="Nueva tarea" required>
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+
+</html>
